@@ -2,23 +2,26 @@
 
 ## Project setup
 ```
+download the repository
+open the terminal and:
+cd Liebherr-app/
+npm install
+cd client/
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Run the project
 ```
-npm run serve
+cd Liebherr-app/
+npm run dev
+the app will open on http://localhost:5000/
 ```
 
-### Compiles and minifies for production
+### When you modify the client part (front end)
 ```
+cd Liebherr-app/
+cd client/
 npm run build
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+#### Work done by Farouk Turki &  Nandhini Malarvizhi

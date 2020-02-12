@@ -1,0 +1,87 @@
+var express = require("express")
+var cors = require("cors")
+var bodyParser = require("body-parser")
+var app = express()
+var mongoose = require("mongoose")
+//var http = require('http').createServer(app);
+var io = require('socket.io')(http)
+var port = process.env.PORT || 5000
+var server = app.listen(5000);
+var io = require('socket.io').listen(server);
+var http = require('http');
+
+let users = [];
+let messages = [];
+let index = 0;
+
+app.use(bodyParser.json())
+app.use(cors())
+app.use(bodyParser.urlencoded({ extended: false }))
+
+const mongoURI = 'mongodb://localhost:27017/test1'
+
+mongoose.connect(mongoURI, { useNewUrlParser: true })
+	.then(() => console.log("MongoDB Connected"))
+	.catch(err => console.log(err))
+
+var Users = require("./routes/Users")
+
+app.use("/users", Users)
+
+
+//Socket connection
+/*mongoose.connect("mongodb://localhost:27017/chatapp");
+
+const ChatSchema = mongoose.Schema({
+	username: String,
+	msg: String
+});
+
+const ChatModel = mongoose.model("chat", ChatSchema);
+
+ChatModel.find((err, result) => {
+	if (err) throw err;
+
+	messages = result;
+});*/
+
+io.on("connection", socket => {
+	socket.emit('loggedIn', {
+		users: users.map(s => s.username),
+		messages: messages
+	});
+
+	socket.on('newuser', username => {
+		console.log(`${username} has arrived at the party.`);
+		socket.username = username;
+		
+		users.push(socket);
+		io.emit('userOnline', socket.username);
+	});
+	
+	socket.on('msg', msg => {
+		let message = {
+			index: index,
+			username: socket.username,
+			msg: msg
+		}
+		messages.push(message)
+
+		io.emit('msg', message);
+		index++;
+		});
+		// Disconnect
+	socket.on("disconnect", () => {
+		console.log(`${socket.username} has left the party.`);
+		io.emit("userLeft", socket.username);
+		users.splice(users.indexOf(socket), 1);
+	});
+	});
+
+// Static folder
+app.use(express.static(__dirname + '/public/'));
+  
+//listen to port 50000
+//app.listen(port, function () {
+//	console.log("Server is running on port: " + port)
+//})
