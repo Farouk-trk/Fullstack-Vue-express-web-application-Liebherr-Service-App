@@ -6,7 +6,7 @@ var mongoose = require("mongoose")
 //var http = require('http').createServer(app);
 var io = require('socket.io')(http)
 var port = process.env.PORT || 5000
-var server = app.listen(5000);
+var server = app.listen(port);
 var io = require('socket.io').listen(server);
 var http = require('http');
 
