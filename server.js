@@ -55,4 +55,5 @@ io.on('connection', (socket) => {
 
 // Static folder
 app.use(express.static(__dirname + '/public/'));
+app.get(/.*/);
   
