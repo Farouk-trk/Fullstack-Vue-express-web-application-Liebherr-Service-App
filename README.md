@@ -2,7 +2,7 @@
 
 ## Project setup
 ```
-download the repository
+clone the repository
 open the terminal and:
 cd Liebherr-app/
 npm install
@@ -24,4 +24,4 @@ cd client/
 npm run build
 ```
 
-#### Work done by Farouk Turki &  Nandhini Malarvizhi
+#### Work done by Farouk Turki
