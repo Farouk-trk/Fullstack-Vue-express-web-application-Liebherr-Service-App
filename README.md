@@ -2,7 +2,7 @@
 
 ## Project setup
 ```
-download the repository
+clone the repository
 open the terminal and:
 cd Liebherr-app/
 npm install
