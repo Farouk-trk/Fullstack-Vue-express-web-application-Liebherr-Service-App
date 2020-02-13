@@ -53,9 +53,8 @@ io.on('connection', (socket) => {
 	})
 })
 
-if(process.env.NODE_ENV === 'production'){
     // Static folder
     app.use(express.static(__dirname + '/public/'));
     app.get(/.*/);
-    }
+    
   
